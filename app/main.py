@@ -1,6 +1,7 @@
 from app import app
 from app.users import view
 from app.tasks import view
+from app.statistics import view
 
 
 if __name__ == "__main__":

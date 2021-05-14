@@ -20,12 +20,13 @@ with get_admin as (
   limit 1
 )
   insert into "{self.table_name}"
-  (description, picture, id_admin, id_user)
+  (description, picture, id_admin, id_user, tag)
   select 
     '{data.get('description')}'
     , '{data.get('picture') or ''}'
     , (table get_admin)
     , '{data.get('id_user')}'
+    , '{data.get('tag')}'
   returning id_tasks
 '''
         return self.execute()
@@ -50,7 +51,7 @@ with get_admin as (
     {'"id_tasks" = ' + f"'{id_tasks}'" if id_tasks else ''}
   where 
     "id_tasks" = {str(id_tasks)}
-    and "id_user" = {id_user}
+    and ("id_user" = {id_user} or "id_admin" = {id_user})
     '''
         return self.execute()
 
