@@ -13,3 +13,6 @@ class Processor:
 
     def check_session(self, session):
         return self.provider.check_session(session)
+
+    def is_admin(self, id_user):
+        return self.provider.is_admin(id_user)

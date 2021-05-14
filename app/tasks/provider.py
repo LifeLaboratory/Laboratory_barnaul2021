@@ -70,3 +70,27 @@ with get_admin as (
   order by status
         '''
         return self.execute()
+
+    def get_all_tasks_users(self, id_user):
+        self.query = f'''
+with is_admin as (
+  select
+    True
+  from users
+  where id_user = {id_user}
+    and type in (1, 2)
+  limit 1
+)
+  select 
+    id_tasks
+    , description 
+    , status 
+    , stars 
+    , t.picture 
+    , 'Администратор ' || us.name as "admin_name"
+  from "{self.table_name}" t
+  left join "users" us on us.id_user = t.id_admin
+  where (table is_admin)
+  order by status desc
+        '''
+        return self.execute()

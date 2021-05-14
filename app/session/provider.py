@@ -41,3 +41,14 @@ class Provider(bp.Provider):
   limit 1
 '''
         return self.execute()[0]
+
+    def is_admin(self, id_user):
+        self.query = f'''
+  select
+    True as is_admin
+  from users
+  where id_user = {id_user}
+    and type in (1, 2)
+  limit 1
+        '''
+        return self.execute()

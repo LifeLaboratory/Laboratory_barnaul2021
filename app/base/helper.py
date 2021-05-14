@@ -21,6 +21,10 @@ def session_to_id_user(header):
     return data.get('id_user')
 
 
+def is_admin(id_user):
+    return Session().is_admin(id_user)
+
+
 def check_session(data, header):
     session = header.get('session') or header.get('Session')
     if session:

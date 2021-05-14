@@ -21,3 +21,6 @@ class Processor:
 
     def get_tasks_user(self, id_user):
         return self.provider.get_tasks_user(id_user)
+
+    def get_all_tasks_users(self, id_user):
+        return self.provider.get_all_tasks_users(id_user)
