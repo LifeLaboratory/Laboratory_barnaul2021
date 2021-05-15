@@ -23,7 +23,7 @@ class Provider(bp.Provider):
     def get_session(self, id_user):
         self.query = f'''
           select
-             id_session
+             id_session as "session"
           from "{self.table_name}"
           where id_user = {id_user}
           limit 1

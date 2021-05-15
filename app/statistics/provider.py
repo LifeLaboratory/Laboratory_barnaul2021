@@ -7,15 +7,22 @@ class Provider(bp.Provider):
         self.table_name = 'review'
         self.field = ['id_review', 'id_user', 'description', 'stars']
 
-    def get_review(self, id_user):
+    def get_statistics_admin(self, id_user):
         self.query = f'''
-  select 
-    us.name 
-    , description
-  from "{self.table_name}" r
-  left join "users" us using("id_user")
-  where '{id_user}' = r.id_user
-  order by date_review
+with is_admin as (
+  select
+    True
+  from users
+  where id_user = {id_user}
+    and type in (1, 2)
+  limit 1
+)
+  select
+    tag as name
+    , count(1) as value
+  from "tasks" t
+  where (table is_admin)
+  group by tag
         '''
         return self.execute()
 
@@ -42,5 +49,26 @@ with is_admin as (
   where (table is_admin)
   group by us.name, status
   order by 1, 2
+        '''
+        return self.execute()
+
+    def get_statistics_all_task_today(self, id_user):
+        self.query = f'''
+with is_admin as (
+  select
+    True
+  from users
+  where id_user = {id_user}
+    and type in (1, 2)
+  limit 1
+)
+  select
+    count(1) as value
+    , count(1) filter(where status = 0) as "На выполнение"
+    , count(1) filter(where status = 1) as "Выполнено"
+    , count(1) filter(where status = 2) as "Принято"
+  from "tasks" t
+  where (table is_admin)
+    and now()::date = date_start::date
         '''
         return self.execute()
