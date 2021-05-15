@@ -24,7 +24,7 @@ def all_tasks_user():
 @app.route(PREFIX, methods=['POST', 'PUT', 'OPTIONS'])
 def tasks():
     if request.method == 'OPTIONS':
-        return jsonify({}), header_option()
+        return {}, header_option()
     if request.method == 'POST':
         id_user = session_to_id_user(request.headers)
         if not id_user:

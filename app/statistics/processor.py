@@ -7,7 +7,7 @@ class Processor:
         self.provider = Provider()
 
     def get_statistics_admin(self, id_user):
-        return self.provider.get_statistics_admin(id_user)
+        return self.provider.get_review(id_user)
 
     def get_statistics_users(self, id_user):
         return self.provider.get_statistics_users(id_user)
