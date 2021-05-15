@@ -80,7 +80,7 @@ class _ActiveHelpTasks extends State<ActiveHelpTasks> {
             future: fetchPhotos(http.Client()),
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
-  
+
               return snapshot.hasData
                   ? TasksList(tasks: snapshot.data)
                   : Center(child: CircularProgressIndicator());
