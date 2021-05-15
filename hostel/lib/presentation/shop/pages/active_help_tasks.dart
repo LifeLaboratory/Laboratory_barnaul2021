@@ -107,24 +107,41 @@ class TasksList extends StatelessWidget {
           itemBuilder: (context, index) {
             return Container(
                   margin: const EdgeInsets.only(top: 5),
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                      children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 30),
-                            child:
-                            Icon(
-                              Icons.lightbulb,
-                              color: Colors.yellow,
-                              size: 30.0,
-                              semanticLabel: 'Text to announce in accessibility modes',
-                            ),
-                          ),
-                          Text('12'),
-                          Text(tasks[index].description, textAlign: TextAlign.center, style: TextStyle(fontSize: 20),),
-                      ]
-                  ),
-            );
+                  padding: const EdgeInsets.all(10),
+                  child: Card(
+                    child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child:
+                      Column(
+                        children:
+                          <Widget>[
+                            Text(tasks[index].description, textAlign: TextAlign.center, style: TextStyle(fontSize: 26),),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 30, top: 20),
+                                    child:
+                                    Icon(
+                                      Icons.lightbulb,
+                                      color: Colors.yellow,
+                                      size: 30.0,
+                                      semanticLabel: 'Text to announce in accessibility modes',
+                                    ),
+                                  ),
+                                Flexible(child:
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 30, top: 22, left: 200),
+                                      child:
+                                    Text(tasks[index].admin_name, textAlign: TextAlign.right, style: TextStyle(fontSize: 15),)
+                                  ))
+                                ]
+                              )
+                            ]
+                        )
+                    )
+                      )
+                  );
           },
         ),
         floatingActionButton: FloatingActionButton(

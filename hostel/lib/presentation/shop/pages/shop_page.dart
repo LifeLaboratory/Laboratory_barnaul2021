@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel/presentation/product_detail/pages/product_detail_page.dart';
 import 'package:hostel/presentation/shop/pages/help_modal_timer.dart';
+import 'package:localstorage/localstorage.dart';
 /*
 onPressed: () => Navigator.of(context).push(
             ProductDetailPage.route(),
@@ -11,6 +12,7 @@ onPressed: () => Navigator.of(context).push(
 
 
 class HelpGrid extends StatelessWidget {
+  final LocalStorage storage = new LocalStorage('todo_app');
   @override
   Widget build( BuildContext context) {
     return GridView.count(
@@ -24,9 +26,11 @@ class HelpGrid extends StatelessWidget {
           onTap: (){
             showModalBottomSheet<void>(
               context: context,
-              builder: (BuildContext context) {
+              builder: (context) {
+                storage.setItem("text",
+                    'Поменять лапу в номере' + storage.getItem('number'));
                 return HelpTimer();
-              },
+              }
             );
           },
           child: Container(
@@ -40,7 +44,7 @@ class HelpGrid extends StatelessWidget {
                   ),
                   Align (
                     alignment: Alignment.bottomCenter,
-                    child: Text("Сеть", style: TextStyle(fontSize: 25, color: Colors.black),)
+                    child: Text("Электрика", style: TextStyle(fontSize: 25, color: Colors.black),)
                   )
                 ]
             ),
