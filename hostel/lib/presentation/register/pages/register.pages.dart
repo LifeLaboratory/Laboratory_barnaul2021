@@ -19,7 +19,7 @@ class RegisterPage extends StatelessWidget {
     if (form.validate()) {
       form.save();
       final LocalStorage storage = new LocalStorage('todo_app');
-      final apiUrl = Uri.parse("http://192.168.1.138:13451/api/user/register");
+      final apiUrl = Uri.parse("http://2f5d91bd2225.ngrok.io/api/user/register");
         var result = await http.post(apiUrl, body: {
           "login": _login,
           "password": _password
