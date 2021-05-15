@@ -4,9 +4,9 @@ import 'package:localstorage/localstorage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HelpTimer extends StatelessWidget {
-  String _comment = '';
-  final LocalStorage storage = new LocalStorage('todo_app');
 
+  final LocalStorage storage = new LocalStorage('todo_app');
+  String _comment = '';
   Future<bool> sendData() async {
     var url = Uri.parse('http://2f5d91bd2225.ngrok.io/api/tasks');
       final client = http.Client();
@@ -35,9 +35,9 @@ class HelpTimer extends StatelessWidget {
         client.close();
       }
   }
-
   @override
   Widget build( BuildContext context) {
+    _comment = '${storage.getItem('text')} ${storage.getItem('number')}';
     return Container(
       height: 300,
       color: Colors.white,
@@ -46,7 +46,8 @@ class HelpTimer extends StatelessWidget {
           padding: EdgeInsets.only(top: 40.0, left: 60, right: 60),
           child: Column(
             children: <Widget>[
-              const Text('Вы хотите вывзать услугу *** \nВ номер **?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+             // ${storage.getItem('number')}
+              const Text('Вы хотите вывзать услугу в номер ?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
               Padding(
                 padding: EdgeInsets.only(top: 25.0, left: 0, right: 0, bottom: 25.0),
                 child: TextFormField(

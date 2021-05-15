@@ -18,17 +18,12 @@ class TabNavigationItem {
         TabNavigationItem(
           page: HomePage(),
           icon: Icon(Icons.home),
-          title: Text("Home"),
+          title: Text("Профиль"),
         ),
         TabNavigationItem(
           page: ActiveHelpTasks(),
           icon: Icon(Icons.shopping_basket),
           title: Text("Помощь"),
-        ),
-        TabNavigationItem(
-          page: SearchPage(),
-          icon: Icon(Icons.search),
-          title: Text("Search"),
         ),
       ];
 }

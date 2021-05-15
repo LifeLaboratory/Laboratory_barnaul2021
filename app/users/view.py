@@ -3,6 +3,7 @@ from app import app
 from app.users.processor import Processor
 from app.base.helper import session_to_id_user
 from app.base.helper import header_option
+import os
 
 PREFIX = '/api/user'
 
@@ -26,6 +27,10 @@ def profile_user_post():
     id_user = session_to_id_user(request.headers)
     data = request.json or dict(request.form)
     data['id_user'] = id_user
+    if request.files:
+        file = request.files['picture']
+        data['picture'] = f"static/{request.files['picture'].filename}"
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], request.files['picture'].filename))
     answer = Processor().profile_update(data)
     if answer:
         answer = answer[0]

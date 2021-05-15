@@ -26,11 +26,10 @@ class HelpGrid extends StatelessWidget {
           onTap: (){
             showModalBottomSheet<void>(
               context: context,
-              builder: (context) {
-                storage.setItem("text",
-                    'Поменять лапу в номере' + storage.getItem('number'));
+              builder: (BuildContext context) {
+                storage.setItem('text', 'Заменить лампочку в номере');
                 return HelpTimer();
-              }
+              },
             );
           },
           child: Container(
@@ -52,7 +51,13 @@ class HelpGrid extends StatelessWidget {
         ),
         GestureDetector(
           onTap: (){
-            print("Container clicked");
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                storage.setItem('text', 'Протечка крана в номере');
+                return HelpTimer();
+              },
+            );
           },
           child: Container(
             padding: const EdgeInsets.all(8),
@@ -73,7 +78,13 @@ class HelpGrid extends StatelessWidget {
         ),
         GestureDetector(
           onTap: (){
-            print("Container clicked");
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                storage.setItem('text', 'Уборка в номере');
+                return HelpTimer();
+              },
+            );
           },
           child: Container(
             padding: const EdgeInsets.all(8),
@@ -94,28 +105,13 @@ class HelpGrid extends StatelessWidget {
         ),
         GestureDetector(
           onTap: (){
-            print("Container clicked");
-          },
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            child:
-            Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(30),
-                    child: Image.asset("assets/images/eat.png"),
-                  ),
-                  Align (
-                      alignment: Alignment.bottomCenter,
-                      child: Text("Еда", style: TextStyle(fontSize: 25, color: Colors.black),)
-                  )
-                ]
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: (){
-            print("Container clicked");
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                storage.setItem('text', 'Комната ');
+                return HelpTimer();
+              },
+            );
           },
           child: Container(
             padding: const EdgeInsets.all(8),

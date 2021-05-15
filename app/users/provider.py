@@ -56,7 +56,7 @@ limit 1
         return self.execute()
 
     def profile_update(self, data):
-        picture = data.get('pictrure')
+        picture = data.get('picture')
         name = data.get('name')
         telephone = data.get('telephone')
         date_birthday = data.get('date_birthday')

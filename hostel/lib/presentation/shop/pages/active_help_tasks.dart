@@ -10,7 +10,6 @@ import 'package:hostel/presentation/shop/pages/shop_page.dart';
 class Tasks {
   final int id_tasks;
   final int status;
-  final int stars;
   final String description;
   final String picture;
   final String admin_name;
@@ -18,7 +17,6 @@ class Tasks {
   Tasks({
     this.id_tasks,
     this.status,
-    this.stars,
     this.picture,
     this.description,
     this.admin_name,
@@ -28,7 +26,6 @@ class Tasks {
     return Tasks(
       id_tasks: json['id_tasks'],
       status: json['status'],
-      stars: json['stars'],
       picture: json['picture'],
       description: json['description'],
       admin_name: json['admin_name'],
@@ -65,11 +62,10 @@ class ActiveHelpTasks extends StatefulWidget {
 
 class _ActiveHelpTasks extends State<ActiveHelpTasks> {
   Future<List<Tasks>> futureAlbum;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Активные щалачи',
+      title: 'Активные задачи',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -98,7 +94,15 @@ class TasksList extends StatelessWidget {
   final List<Tasks> tasks;
 
   TasksList({Key key, this.tasks}) : super(key: key);
-
+  MaterialColor selectColor(status) {
+    if (status == 0) {
+      return Colors.red;
+    } else if (status == 1) {
+      return Colors.yellow;
+    } else if (status == 2) {
+      return Colors.green;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +128,7 @@ class TasksList extends StatelessWidget {
                                     child:
                                     Icon(
                                       Icons.lightbulb,
-                                      color: Colors.yellow,
+                                      color: selectColor(tasks[index].status),
                                       size: 30.0,
                                       semanticLabel: 'Text to announce in accessibility modes',
                                     ),
