@@ -14,7 +14,7 @@ class RegisterPage extends StatelessWidget {
   String _password;
   String _err;
 
-  void validation () async {
+  Future<bool> validation () async {
     final form = formKey.currentState;
     if (form.validate()) {
       form.save();
@@ -25,13 +25,13 @@ class RegisterPage extends StatelessWidget {
           "password": _password
         });
         var resData = json.decode(result.body);
-        _err = '12';
         print(resData);
         if (resData['session'] != null) {
           storage.setItem('session', resData['session']);
+          return true;
         } else {
           Fluttertoast.showToast(
-              msg: "resData['err']",
+              msg: resData['error'],
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
@@ -39,10 +39,10 @@ class RegisterPage extends StatelessWidget {
               textColor: Colors.white,
               fontSize: 16.0
           );
+          return false;
         }
-
-
     } else {
+      return false;
       print('reg - err');
     }
   }
@@ -51,7 +51,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Регострация"),
+        title: Text("Регистрация"),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
@@ -78,7 +78,12 @@ class RegisterPage extends StatelessWidget {
               RaisedButton(
                 padding: EdgeInsets.all(10.0),
                 child: Text("Регистрация", style: TextStyle(fontSize: 20.0),),
-                onPressed: validation,
+                onPressed: () async => {
+                  if (await validation() == true) {
+                  //Navigator.pushNamed(context, '/home')
+                    Navigator.pushNamedAndRemoveUntil(context, "/home", (r) => false)
+                  }
+                }
               )
             ],
           )

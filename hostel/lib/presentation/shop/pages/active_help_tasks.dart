@@ -31,7 +31,7 @@ class Tasks {
 Future<Tasks> fetchTasks() async {
   print("hello");
   final response =
-      await http.get(Uri.parse('http://192.168.1.148:13451/api/tasks'));
+      await http.get(Uri.parse('http://192.168.1.138:13451/api/tasks'));
   print(response);
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
