@@ -54,18 +54,24 @@ class RegisterPage extends StatelessWidget {
         title: Text("Регистрация"),
       ),
       body: Container(
+        margin: const EdgeInsets.only(top: 80),
         padding: EdgeInsets.all(20.0),
         child: Form(
           key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextFormField(
-                onChanged: (text) {
-                  _login = text;
-                },
-                decoration: InputDecoration(labelText: 'Login'),
-                validator: (value) => value.isEmpty ? 'Логин должен быть заполнен' : null,
+              Image.asset("assets/images/logo.png", height: 125,),Container(
+              margin: const EdgeInsets.only(top: 90),
+              child:
+
+                  TextFormField(
+                    onChanged: (text) {
+                      _login = text;
+                    },
+                    decoration: InputDecoration(labelText: 'Login'),
+                    validator: (value) => value.isEmpty ? 'Логин должен быть заполнен' : null,
+                  ),
               ),
               TextFormField(
                   onChanged: (text) {
@@ -75,15 +81,25 @@ class RegisterPage extends StatelessWidget {
                 obscureText: true,
                 validator: (value) => value.isEmpty ? 'Пароль должен быть заполнен' : null
               ),
-              RaisedButton(
-                padding: EdgeInsets.all(10.0),
-                child: Text("Регистрация", style: TextStyle(fontSize: 20.0),),
-                onPressed: () async => {
-                  if (await validation() == true) {
-                  //Navigator.pushNamed(context, '/home')
-                    Navigator.pushNamedAndRemoveUntil(context, "/home", (r) => false)
-                  }
-                }
+              Container(
+                  margin: const EdgeInsets.only(top: 20, bottom: 20),
+                  child:
+                  RaisedButton(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text("Регистрация", style: TextStyle(fontSize: 20.0),),
+                    onPressed: () async => {
+                      if (await validation() == true) {
+                      //Navigator.pushNamed(context, '/home')
+                        Navigator.pushNamedAndRemoveUntil(context, "/home", (r) => false)
+                      }
+                    }
+                  ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false);
+                },
+                child: new Text("Войти", textAlign: TextAlign.center),
               )
             ],
           )

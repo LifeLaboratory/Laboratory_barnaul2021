@@ -4,7 +4,8 @@ import 'package:hostel/presentation/shop/pages/shop_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-
+import 'package:localstorage/localstorage.dart';
+import 'package:hostel/presentation/shop/pages/shop_page.dart';
 
 class Tasks {
   final int id_tasks;
@@ -36,8 +37,9 @@ class Tasks {
 }
 
 Future<List<Tasks>> fetchPhotos(http.Client client) async {
-  final response = await http.get(Uri.parse('http://192.168.1.138:13451/api/tasks'), headers: {
-      "session": "0b804514-9378-881b-672a-4ffa9fd2d4f3"
+  final LocalStorage storage = new LocalStorage('todo_app');
+  final response = await http.get(Uri.parse('http://2f5d91bd2225.ngrok.io/api/tasks'), headers: {
+      "session": storage.getItem('session'),
     });
 
   // Use the compute function to run parsePhotos in a separate isolate.
@@ -67,15 +69,15 @@ class _ActiveHelpTasks extends State<ActiveHelpTasks> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Fetch Data Example',
+      title: 'Активные щалачи',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Fetch Data Example'),
+          title: Text('Активные запросы'),
         ),
-        body: Center(
+        body: Center (
           child: FutureBuilder<List<Tasks>>(
             future: fetchPhotos(http.Client()),
             builder: (context, snapshot) {
@@ -99,14 +101,46 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemCount: tasks.length,
-      itemBuilder: (context, index) {
-        return Text(tasks[index].description);
-      },
+    return Scaffold(
+        body: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (context, index) {
+            return Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                      children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 30),
+                            child:
+                            Icon(
+                              Icons.lightbulb,
+                              color: Colors.yellow,
+                              size: 30.0,
+                              semanticLabel: 'Text to announce in accessibility modes',
+                            ),
+                          ),
+                          Text('12'),
+                          Text(tasks[index].description, textAlign: TextAlign.center, style: TextStyle(fontSize: 20),),
+                      ]
+                  ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+           // Navigator.pushNamed(context, "/addHelp");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ShopPage()),
+            );
+          },
+          child: Icon(Icons.add, color: Colors.white, size: 29,),
+          backgroundColor: Colors.blue,
+          tooltip: 'Capture Picture',
+          elevation: 5,
+          splashColor: Colors.grey,
+        ),
     );
   }
 }
