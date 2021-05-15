@@ -1,4 +1,4 @@
-from app.statistics.provider import Provider
+from app.review.provider import Provider
 from app.base.helper import create_session
 
 
