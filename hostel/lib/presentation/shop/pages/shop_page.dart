@@ -28,6 +28,7 @@ class HelpGrid extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 storage.setItem('text', 'Заменить лампочку в номере');
+                storage.setItem('tag', 'Электрика');
                 return HelpTimer();
               },
             );
@@ -55,6 +56,7 @@ class HelpGrid extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 storage.setItem('text', 'Протечка крана в номере');
+                storage.setItem('tag', 'Вода');
                 return HelpTimer();
               },
             );
@@ -82,6 +84,7 @@ class HelpGrid extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 storage.setItem('text', 'Уборка в номере');
+                storage.setItem('tag', 'Уборка');
                 return HelpTimer();
               },
             );
@@ -109,6 +112,7 @@ class HelpGrid extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 storage.setItem('text', 'Комната ');
+                storage.setItem('tag', 'Другое');
                 return HelpTimer();
               },
             );

@@ -7,6 +7,7 @@ class HelpTimer extends StatelessWidget {
 
   final LocalStorage storage = new LocalStorage('todo_app');
   String _comment = '';
+  String _tag = '';
   Future<bool> sendData() async {
     var url = Uri.parse('http://2f5d91bd2225.ngrok.io/api/tasks');
       final client = http.Client();
@@ -14,9 +15,11 @@ class HelpTimer extends StatelessWidget {
         var res = await client.post(url, headers: {
           "session": storage.getItem('session'),
         }, body: {
-          "description": _comment
+          "description": _comment,
+          "tag": _tag
         });
         _comment = '';
+        _tag = '';
 
         Fluttertoast.showToast(
             msg: "Заявка успешно создана!",
@@ -38,6 +41,7 @@ class HelpTimer extends StatelessWidget {
   @override
   Widget build( BuildContext context) {
     _comment = '${storage.getItem('text')} ${storage.getItem('number')}';
+    _tag = '${storage.getItem('tag')}';
     return Container(
       height: 300,
       color: Colors.white,

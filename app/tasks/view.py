@@ -8,8 +8,10 @@ from app.base.helper import is_admin
 PREFIX = '/api/tasks'
 
 
-@app.route(PREFIX, methods=['GET'])
+@app.route(PREFIX, methods=['GET', 'OPTIONS'])
 def all_tasks_user():
+    if request.method == 'OPTIONS':
+        return jsonify({}), header_option()
     id_user = session_to_id_user(request.headers)
     if not id_user:
         return jsonify({}), header_option()
@@ -24,7 +26,7 @@ def all_tasks_user():
 @app.route(PREFIX, methods=['POST', 'PUT', 'OPTIONS'])
 def tasks():
     if request.method == 'OPTIONS':
-        return {}, header_option()
+        return jsonify({}), header_option()
     if request.method == 'POST':
         id_user = session_to_id_user(request.headers)
         if not id_user:
